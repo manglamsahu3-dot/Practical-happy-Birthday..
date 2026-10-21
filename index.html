@@ -1,0 +1,560 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#170b2d">
+<title>Happy Birthday Prachi 💖</title>
+
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Dancing+Script:wght@600;700&display=swap" rel="stylesheet">
+
+<style>
+*{box-sizing:border-box}
+body{
+ margin:0;color:white;text-align:center;
+ font-family:Poppins,sans-serif;
+ background:radial-gradient(circle at top,#612451,#170b2d 70%);
+ min-height:100vh;overflow:hidden
+}
+#stars{position:fixed;inset:0;pointer-events:none;overflow:hidden}
+.star{position:absolute;animation:twinkle 2s infinite alternate}
+.screen{
+ display:none;position:fixed;inset:0;overflow-y:auto;
+ padding:65px 20px 30px;
+ align-items:center;justify-content:center;
+ flex-direction:column;z-index:1;
+}
+.screen.active{display:flex;animation:appear .5s ease}
+.content{width:100%;max-width:480px;margin:auto}
+h1{font-size:clamp(34px,9vw,52px)}
+h2{font-size:clamp(24px,6vw,32px)}
+p{line-height:1.8}
+.script{font-family:"Dancing Script",cursive;color:#ffafd2;font-size:36px}
+.muted{font-size:13px;color:#ead6f1}
+.gradient{
+ background:linear-gradient(90deg,#fff0a8,#ff8fbd,#d6aaff);
+ -webkit-background-clip:text;background-clip:text;color:transparent
+}
+button{
+ font-family:inherit;cursor:pointer;border:0;
+ padding:13px 22px;border-radius:30px;
+ font-size:14px;font-weight:700;margin:8px 4px;
+ color:#38112f;background:linear-gradient(90deg,#ffd0e5,#ff8dbb,#ffcf9a);
+ box-shadow:0 5px 22px #ff8ab344
+}
+button:active{transform:scale(.95)}
+button:disabled{opacity:.5}
+.secondary{background:#ffffff15;color:white;border:1px solid #ffffff35}
+.card{
+ padding:20px;border-radius:22px;
+ background:#ffffff0e;border:1px solid #ffffff25;
+ backdrop-filter:blur(8px);margin:15px 0
+}
+.big{font-size:75px;animation:float 2s infinite ease-in-out}
+.progress{
+ position:fixed;top:0;left:0;width:100%;z-index:10;
+ padding:12px;background:#170b2ddd;font-size:11px
+}
+.track{height:5px;background:#ffffff25;margin-top:7px;border-radius:9px;overflow:hidden}
+#bar{height:100%;width:6.67%;background:#ff8fbd;transition:width .3s}
+#stepName{float:right}
+.hide{display:none!important}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:15px 0}
+.tile{
+ min-height:85px;border:1px solid #ffffff30;
+ background:#ffffff10;color:white;border-radius:17px;
+ box-shadow:none;margin:0
+}
+.tile.selected{background:#ff82b844;border-color:#ffb5d8}
+.cake{position:relative;width:210px;height:170px;margin:15px auto}
+.base{
+ position:absolute;bottom:8px;left:25px;width:160px;height:65px;
+ background:linear-gradient(#ffb4cc,#f45e91);border-radius:12px
+}
+.cream{
+ position:absolute;bottom:65px;left:19px;width:172px;height:27px;
+ background:#fff0f6;border-radius:10px
+}
+.candle{
+ position:absolute;bottom:92px;left:100px;width:10px;height:38px;
+ background:repeating-linear-gradient(45deg,white 0 5px,#ff7eaa 5px 10px);
+ border-radius:4px
+}
+.flame{
+ position:absolute;bottom:130px;left:105px;width:18px;height:24px;
+ background:radial-gradient(#fff8a5,#ff8d34);
+ border-radius:50%;animation:flicker .4s infinite alternate
+}
+.balloon-row{display:flex;justify-content:center;gap:13px;margin:25px 0}
+.balloon{
+ width:52px;height:67px;border-radius:50%;
+ background:#ff7cac;cursor:pointer;animation:float 2s infinite;
+ border:0;padding:0;margin:0
+}
+.balloon:nth-child(2){background:#72caff}
+.balloon:nth-child(3){background:#bd8aff}
+.balloon:nth-child(4){background:#ffcf77}
+.balloon.popped{visibility:hidden}
+.envelope{
+ padding:32px 15px;border-radius:12px;background:#ffcf76;
+ color:#53254b;margin:25px 0;cursor:pointer
+}
+.reason{padding:10px;border-radius:12px;background:#ffffff10;margin:7px 0;font-size:13px}
+.meter{height:12px;background:#ffffff25;border-radius:10px;overflow:hidden;margin:18px 0}
+#meterFill{height:100%;width:0;background:#ff83b8;transition:width .2s}
+.heart{font-size:75px;cursor:pointer;animation:float 1.4s infinite}
+@keyframes appear{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+@keyframes float{50%{transform:translateY(-12px)}}
+@keyframes twinkle{to{opacity:.2;transform:scale(.7)}}
+@keyframes flicker{to{transform:scale(1.2);filter:brightness(1.4)}}
+</style>
+</head>
+<body>
+
+<div id="stars"></div>
+<div class="progress">
+ <span id="stepName">Step 1 of 15</span>
+ <div class="track"><div id="bar"></div></div>
+</div>
+
+<section class="screen active" id="s1">
+ <div class="content">
+  <div class="big">🎁</div>
+  <p class="muted">A SPECIAL SURPRISE FOR</p>
+  <h1 class="gradient">PRACHI 💖</h1>
+  <p class="script">Made with love by Manglam</p>
+  <p>15 little surprises, made especially for you. ✨</p>
+  <button onclick="goToStep(2)">UNWRAP YOUR SURPRISE 💝</button>
+ </div>
+</section>
+
+<section class="screen" id="s2">
+ <div class="content">
+  <div class="big">🎉</div>
+  <h1 class="gradient">It's Your Special Day!</h1>
+  <p>Today deserves extra smiles, extra happiness and extra cake!</p>
+  <div class="card">🌸 💗 🎂 💗 🌸<p class="script">Let the magic begin!</p></div>
+  <button onclick="goToStep(3)">MAKE A BIRTHDAY CAKE 🎂</button>
+ </div>
+</section>
+
+<section class="screen" id="s3">
+ <div class="content">
+  <h2>One cake, made with love 🎂</h2>
+  <p id="bakeText" class="muted">Preparing something sweet...</p>
+  <div class="cake">
+   <div class="base"></div><div class="cream"></div>
+   <div class="candle"></div><div class="flame" id="flame"></div>
+  </div>
+  <h2 class="script">Happy Birthday, Prachi!</h2>
+  <button onclick="goToStep(4)">MAKE A WISH ✨</button>
+ </div>
+</section>
+
+<section class="screen" id="s4">
+ <div class="content">
+  <div class="big" id="candleIcon">🕯️</div>
+  <h1 class="gradient">Make a Wish</h1>
+  <p>Close your eyes for a moment and wish for something beautiful.</p>
+  <button id="blow" onclick="blowCandle()">BLOW THE CANDLE 🌬️</button>
+  <button id="blownNext" class="hide" onclick="goToStep(5)">LET'S CELEBRATE 🎉</button>
+ </div>
+</section>
+
+<section class="screen" id="s5">
+ <div class="content">
+  <h2>Pop the Balloons 🎈</h2>
+  <p class="muted">Tap all four to reveal your messages.</p>
+  <div class="balloon-row">
+   <button class="balloon" onclick="popBalloon(this,0)"></button>
+   <button class="balloon" onclick="popBalloon(this,1)"></button>
+   <button class="balloon" onclick="popBalloon(this,2)"></button>
+   <button class="balloon" onclick="popBalloon(this,3)"></button>
+  </div>
+  <div class="card"><p id="balloonMsg">Choose a balloon! 💖</p><p class="muted" id="balloonCount">0 of 4</p></div>
+  <button id="balloonNext" class="hide" onclick="goToStep(6)">10 REASONS YOU'RE SPECIAL 💗</button>
+ </div>
+</section>
+
+<section class="screen" id="s6">
+ <div class="content">
+  <h2>10 Reasons You're Special 💖</h2>
+  <p class="muted">Tap each card to reveal a message.</p>
+  <div id="reasons"></div>
+  <button onclick="goToStep(7)">FEEL THE LOVE 💕</button>
+ </div>
+</section>
+
+<section class="screen" id="s7">
+ <div class="content">
+  <h1 class="gradient">Heart Meter</h1>
+  <div class="heart" onclick="tapHeart()">💖</div>
+  <p>Tap the heart 10 times to fill the meter!</p>
+  <div class="meter"><div id="meterFill"></div></div>
+  <p id="meterText">Love: 0%</p>
+  <button id="heartNext" class="hide" onclick="goToStep(8)">MAGICAL GARDEN 🌸</button>
+ </div>
+</section>
+
+<section class="screen" id="s8">
+ <div class="content">
+  <div class="big">🌸</div>
+  <h1 class="gradient">A Garden for You</h1>
+  <div class="card" style="font-size:38px">🌷 🌸 🌼 🦋 🌺 🌻</div>
+  <p>May your life bloom with beautiful memories, kindness and happiness.</p>
+  <button onclick="goToStep(9)">OPEN YOUR LETTER 💌</button>
+ </div>
+</section>
+
+<section class="screen" id="s9">
+ <div class="content">
+  <h2 class="script">A Letter from Manglam 💌</h2>
+  <div class="envelope" onclick="openLetter()">💌<p>Tap to open your letter</p>
+   <p id="letterText"></p>
+  </div>
+  <button id="letterNext" class="hide" onclick="goToStep(10)">YOUR PRESENT 🎁</button>
+ </div>
+</section>
+
+<section class="screen" id="s10">
+ <div class="content">
+  <h2>Choose Your Gift 🎁</h2>
+  <p class="muted">Pick one special box.</p>
+  <div class="grid">
+   <button class="tile" onclick="chooseGift(0,this)">🎁<br>Joy</button>
+   <button class="tile" onclick="chooseGift(1,this)">💝<br>Love</button>
+   <button class="tile" onclick="chooseGift(2,this)" style="grid-column:1/-1">🌟<br>Dreams</button>
+  </div>
+  <p id="giftMessage">Your surprise awaits...</p>
+  <button id="giftNext" class="hide" onclick="goToStep(11)">OPEN YOUR GIFT ✨</button>
+ </div>
+</section>
+
+<section class="screen" id="s11">
+ <div class="content">
+  <div class="big" id="giftIcon">🎁</div>
+  <h1 class="gradient" id="giftTitle">A Gift of Happiness</h1>
+  <div class="card"><p id="giftDescription">May your days be filled with smiles!</p></div>
+  <button onclick="goToStep(12)">PLAY A CUTE QUIZ 🎀</button>
+ </div>
+</section>
+
+<section class="screen" id="s12">
+ <div class="content">
+  <h2>Birthday Mini Quiz 🎀</h2>
+  <div class="card">
+   <h3 id="quizQuestion">What should your birthday be filled with?</h3>
+   <div id="quizOptions"></div>
+   <p id="quizFeedback"></p>
+  </div>
+  <button id="quizNext" class="hide" onclick="nextQuiz()">NEXT QUESTION 💗</button>
+  <button id="quizFinish" class="hide" onclick="goToStep(13)">MAKE A WISH ✨</button>
+ </div>
+</section>
+
+<section class="screen" id="s13">
+ <div class="content">
+  <div class="big">🫙</div>
+  <h1 class="gradient">Wish Jar</h1>
+  <div class="card"><p id="jarMessage">Your wishes are waiting!</p><p id="jarCount">0 wishes</p></div>
+  <button id="addWish" onclick="addWish()">ADD A WISH 💖</button>
+  <button id="jarNext" class="hide" onclick="goToStep(14)">ONE LAST SURPRISE 💝</button>
+ </div>
+</section>
+
+<section class="screen" id="s14">
+ <div class="content">
+  <h1 class="gradient">Little Wishes for You 💗</h1>
+  <div class="card">🌷 May you always find reasons to smile.</div>
+  <div class="card">🌈 May your dreams lead you to wonderful places.</div>
+  <div class="card">✨ May every new chapter bring you happiness.</div>
+  <button onclick="goToStep(15)">GRAND FINALE 🎆</button>
+ </div>
+</section>
+
+<section class="screen" id="s15">
+ <div class="content">
+  <div class="big">🎂💖🎉</div>
+  <h1 class="gradient">HAPPY<br>BIRTHDAY<br>PRACHI!</h1>
+  <p class="script">Keep shining, always!</p>
+  <div class="card">
+   May your life be filled with beautiful memories, endless laughter and all the happiness you deserve. 🌸
+   <p class="script">With love, Manglam ❤️</p>
+  </div>
+  <button onclick="celebrate()">CELEBRATE AGAIN 🎉</button>
+  <button class="secondary" onclick="restart()">REPLAY ALL 15 STEPS ↻</button>
+ </div>
+</section>
+
+<script>
+"use strict";
+
+const $ = id => document.getElementById(id);
+let currentStep = 1;
+let popped = 0;
+let heartTaps = 0;
+let letterOpened = false;
+let giftChoice = -1;
+let quizIndex = 0;
+let quizAnswered = false;
+let wishes = 0;
+
+function goToStep(n) {
+ const nextScreen = $("s" + n);
+ const oldScreen = $("s" + currentStep);
+
+ if (!nextScreen || !oldScreen) return;
+
+ oldScreen.classList.remove("active");
+ nextScreen.classList.add("active");
+
+ currentStep = n;
+ $("stepName").textContent = "Step " + n + " of 15";
+ $("bar").style.width = (n / 15 * 100) + "%";
+
+ if (n === 3) $("bakeText").textContent = "Your cake is ready, baked with love! 💖";
+ if (n === 6) buildReasons();
+ if (n === 11) revealGift();
+ if (n === 12) showQuiz();
+
+ if (n === 2 || n === 4 || n === 15) confettiBurst(45);
+}
+
+function confettiBurst(count=90) {
+ if (typeof window.confetti !== "function") return;
+ try {
+  window.confetti({
+   particleCount: count,
+   spread: 80,
+   origin: {y: 0.65},
+   colors: ["#ff6b9d","#ffd166","#c9a7ff","#ffffff"]
+  });
+ } catch (e) {}
+}
+
+function blowCandle() {
+ $("flame").style.display = "none";
+ $("candleIcon").textContent = "💨✨";
+ $("blow").classList.add("hide");
+ $("blownNext").classList.remove("hide");
+ confettiBurst(120);
+}
+
+const balloonMessages = [
+ "Your smile deserves sunshine! ☀️",
+ "You deserve beautiful memories! 💗",
+ "Keep shining in your own way! ✨",
+ "May happiness follow you everywhere! 🌸"
+];
+
+function popBalloon(el, index) {
+ if (el.classList.contains("popped")) return;
+
+ el.classList.add("popped");
+ popped++;
+ $("balloonMsg").textContent = balloonMessages[index];
+ $("balloonCount").textContent = popped + " of 4";
+ confettiBurst(20);
+
+ if (popped === 4) {
+  $("balloonNext").classList.remove("hide");
+  $("balloonMsg").textContent = "You popped them all! Amazing! 💖";
+  confettiBurst(100);
+ }
+}
+
+const reasons = [
+ ["✨","Your smile can brighten an ordinary day."],
+ ["💗","Your kindness makes a difference."],
+ ["🌸","You deserve beautiful things."],
+ ["🦋","Never stop being yourself."],
+ ["🌈","Keep following your dreams."],
+ ["⭐","Your uniqueness is special."],
+ ["🥰","You deserve appreciation."],
+ ["💐","May life surprise you with joy."],
+ ["🧸","May you always feel supported."],
+ ["💖","May you always have reasons to smile."]
+];
+
+function buildReasons() {
+ if ($("reasons").children.length) return;
+ reasons.forEach((r,i) => {
+  const b = document.createElement("button");
+  b.className = "reason";
+  b.style.color = "white";
+  b.style.width = "100%";
+  b.textContent = "💌 Reason " + (i+1) + " — Tap to reveal";
+  b.onclick = () => {
+   b.textContent = r[0] + " " + r[1];
+   b.style.background = "#ff83b833";
+   confettiBurst(8);
+  };
+  $("reasons").appendChild(b);
+ });
+}
+
+function tapHeart() {
+ if (heartTaps >= 10) return;
+ heartTaps++;
+ $("meterFill").style.width = (heartTaps * 10) + "%";
+ $("meterText").textContent = "Love: " + (heartTaps * 10) + "%";
+
+ if (heartTaps === 10) {
+  $("meterText").textContent = "FULL OF HAPPINESS! 💖";
+  $("heartNext").classList.remove("hide");
+  confettiBurst(100);
+ }
+}
+
+function openLetter() {
+ if (letterOpened) return;
+ letterOpened = true;
+
+ const message =
+  "Dear Prachi ❤️, may your birthday bring you happiness, courage, laughter and beautiful memories. Keep believing in yourself and following your dreams. You deserve kindness, joy and wonderful things. Happy Birthday! With lots of love, Manglam ❤️";
+
+ let i = 0;
+ const target = $("letterText");
+
+ function type() {
+  if (i < message.length) {
+   target.textContent += message.charAt(i++);
+   setTimeout(type, 25);
+  } else {
+   $("letterNext").classList.remove("hide");
+   confettiBurst(60);
+  }
+ }
+ type();
+}
+
+function chooseGift(i, el) {
+ giftChoice = i;
+ document.querySelectorAll("#s10 .tile").forEach(b => b.classList.remove("selected"));
+ el.classList.add("selected");
+
+ $("giftMessage").textContent = [
+  "A box full of joy is waiting! 🎉",
+  "A box full of love is waiting! 💝",
+  "A box full of dreams is waiting! 🌟"
+ ][i];
+
+ $("giftNext").classList.remove("hide");
+}
+
+function revealGift() {
+ const gifts = [
+  ["🎉","The Gift of Joy","May your days be full of laughter and happy memories."],
+  ["💝","The Gift of Love","May you always feel appreciated and cared for."],
+  ["🌟","The Gift of Dreams","May you have courage to follow your dreams."]
+ ];
+ const g = gifts[giftChoice < 0 ? 0 : giftChoice];
+ $("giftIcon").textContent = g[0];
+ $("giftTitle").textContent = g[1];
+ $("giftDescription").textContent = g[2];
+ confettiBurst(55);
+}
+
+const quiz = [
+ {
+  q:"What should your birthday be filled with?",
+  a:["Happiness and laughter 💖","Boring days 😴","No cake 🎂"]
+ },
+ {
+  q:"Choose a magical birthday gift!",
+  a:["A jar of wishes 🌟","An empty box 📦","A rainy cloud ☁️"]
+ },
+ {
+  q:"What do you deserve this year?",
+  a:["Joy and beautiful memories 🌸","Less fun 😶","Nothing special 😴"]
+ }
+];
+
+function showQuiz() {
+ quizAnswered = false;
+ $("quizFeedback").textContent = "";
+ $("quizNext").classList.add("hide");
+ $("quizFinish").classList.add("hide");
+ $("quizQuestion").textContent = quiz[quizIndex].q;
+ $("quizOptions").innerHTML = "";
+
+ quiz[quizIndex].a.forEach(answer => {
+  const b = document.createElement("button");
+  b.className = "tile";
+  b.style.width = "100%";
+  b.style.margin = "5px 0";
+  b.textContent = answer;
+
+  b.onclick = () => {
+   if (quizAnswered) return;
+   quizAnswered = true;
+   $("quizFeedback").textContent =
+    "That's a lovely choice! You deserve a wonderful birthday! 💖";
+
+   $("quizOptions").querySelectorAll("button").forEach(x => x.disabled = true);
+   if (quizIndex < quiz.length - 1) {
+    $("quizNext").classList.remove("hide");
+   } else {
+    $("quizFinish").classList.remove("hide");
+   }
+   confettiBurst(25);
+  };
+  $("quizOptions").appendChild(b);
+ });
+}
+
+function nextQuiz() {
+ if (quizIndex >= quiz.length - 1) return;
+ quizIndex++;
+ showQuiz();
+}
+
+const wishesList = [
+ "May your dreams come true! 🌟",
+ "May every day bring laughter! 💕",
+ "May you find joy in little things! 🌷",
+ "May you always believe in yourself! 🦋",
+ "May your year be full of good memories! 🎉",
+ "May happiness follow you everywhere! 🌈"
+];
+
+function addWish() {
+ if (wishes >= wishesList.length) return;
+ $("jarMessage").textContent = wishesList[wishes];
+ wishes++;
+ $("jarCount").textContent = wishes + " of " + wishesList.length + " wishes collected";
+ confettiBurst(18);
+
+ if (wishes === wishesList.length) {
+  $("jarMessage").textContent = "Your wish jar is full of magic! 💖";
+  $("addWish").classList.add("hide");
+  $("jarNext").classList.remove("hide");
+  confettiBurst(90);
+ }
+}
+
+function celebrate() {
+ confettiBurst(180);
+}
+
+function restart() {
+ location.reload();
+}
+
+/* Background stars */
+for (let i=0; i<45; i++) {
+ const star = document.createElement("span");
+ star.className = "star";
+ star.textContent = Math.random() > .5 ? "✦" : "·";
+ star.style.left = Math.random()*100 + "%";
+ star.style.top = Math.random()*100 + "%";
+ star.style.fontSize = (8+Math.random()*13) + "px";
+ star.style.animationDelay = Math.random()*3 + "s";
+ $("stars").appendChild(star);
+}
+</script>
+</body>
+</html>
